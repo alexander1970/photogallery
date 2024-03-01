@@ -10,4 +10,11 @@ namespace Helpers {
         global $base_path;
         return $base_path . '\modules\templates\\' . $fragment . '.inc.php';
     }
+
+    function connect_to_db(){
+        $conn_str = 'mysql:host=' . \Settings\DB_HOST . ';dbname=' .
+            \Settings\DB_NAME . ';charset=utf8';
+        return new \PDO($conn_str, \Settings\DB_USERNAME,
+            \Settings\DB_PASSWORD);
+    }
 }
