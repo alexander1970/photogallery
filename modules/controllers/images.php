@@ -15,6 +15,24 @@ class Images extends BaseController {
     }
 
     function item(int $index) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $comment_form =
+                \Forms\Comment::get_normalized_data($_POST);
+            if (!isset($comment_form['__errors'])) {
+                $comment_form =
+                    \Forms\Comment::get_prepared_data($comment_form);
+                $comment_form['picture'] = $index;
+                $comments = new \Models\Comment();
+                $comments->insert($comment_form);
+                \Helpers\redirect('/' . $index .
+                    \Helpers\get_GET_params(['page', 'filter',
+                    'ref']));
+            }
+        } else
+            $comment_form =
+                \Forms\Comment::get_initial_data(['uploaded' => time()]);
+        $users = new \Models\User();
+        $users->select('*', NULL, '', NULL, 'name');
         $picts = new \Models\Picture();
         $pict = $picts->get_or_404($index, 'pictures.id', 'pictures.id, title, ' .
             'description, filename, uploaded, users.name AS user_name, ' .
@@ -26,7 +44,8 @@ class Images extends BaseController {
         $comments->select('comments.id, contents, users.name AS user_name, ' .
             'uploaded', ['users'], 'picture = ?', [$index]);
         $ctx = ['pict' => $pict, 'site_title' => $pict['title'],
-            'comments' => $comments];
+            'comments' => $comments, 'form' => $comment_form,
+            'users' => $users];
         $this->render('item', $ctx);
     }
 
