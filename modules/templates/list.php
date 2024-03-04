@@ -26,7 +26,7 @@
         <td><h4><a href="/users/<?php echo $pict['user_name'] ?>">
             <?php echo $pict['user_name'] ?>
         </a></h4></td>
-        <td><?php echo $pict['uploaded'] ?></td>
+        <td><?php echo \Helpers\get_formatted_timestamp($pict['uploaded']) ?></td>
         <td><?php echo $pict['comment_count'] ?></td>
     </tr>
     <?php } ?>

@@ -24,7 +24,7 @@
 <h4>Опубликовано пользователем:
 <a href="/users/<?php echo $pict['user_name'] ?>/">
 <?php echo $pict['user_name'] ?></a></h4>
-<p>Дата и время публикации: <?php echo $pict['uploaded'] ?></p>
+<p>Дата и время публикации: <?php echo \Helpers\get_formatted_timestamp($pict['uploaded']) ?></p>
 <h3>Комментарии</h3>
 <?php foreach ($comments as $comment) { ?>
     <h5><?php echo $comment['user_name'] ?></h5>

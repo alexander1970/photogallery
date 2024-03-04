@@ -31,4 +31,8 @@ namespace Helpers {
             $s = '?' . $s;
         return $s;
     }
+
+    function get_formatted_timestamp(string $timestamp): string {
+        return strftime('%d.%m.%Y %H:%M:%S', strtotime($timestamp));
+    }
 }
