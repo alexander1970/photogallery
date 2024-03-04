@@ -7,6 +7,9 @@ $result = [];
 if (preg_match('/^cats\/(\w+)$/', $request_path, $result) === 1) {
     $ctr = new \Controllers\Images();
     $ctr->by_cat($result[1]);
+} else if (preg_match('/^users\/(\w+)$/', $request_path, $result) === 1) {
+    $ctr = new \Controllers\Images();
+    $ctr->by_user($result[1]);
 } else if (preg_match('/^(\d+)$/', $request_path, $result) === 1) {
     $index = (integer)$result[1];
     $ctr = new \Controllers\Images();
