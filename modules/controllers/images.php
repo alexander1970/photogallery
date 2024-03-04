@@ -24,12 +24,16 @@ class Images extends BaseController {
         $cats = new \Models\Category();
         $cat = $cats->get_or_404($slug, 'slug', 'id, name');
         $picts = new \Models\Picture();
+        $pict_count_rec = $picts->get_record('COUNT(*) AS cnt', NULL,
+            'category = ?', [$cat['id']]);
+        $paginator = new \Paginator($pict_count_rec['cnt']);
         $picts->select('pictures.id, title, filename, uploaded, ' .
             'users.name AS user_name, ' .
             '(SELECT COUNT(*) FROM comments WHERE ' .
             'comments.picture = pictures.id) AS comment_count',
-            ['users'], 'category = ?', [$cat['id']]);
-        $ctx = ['cat' => $cat, 'picts' => $picts];
+            ['users'], 'category = ?', [$cat['id']], '',
+            $paginator->first_record_num, \Settings\RECORDS_ON_PAGE);
+        $ctx = ['cat' => $cat, 'picts' => $picts, 'paginator' => $paginator];
         $this->render('by_cat', $ctx);
     }
 }

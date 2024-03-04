@@ -17,4 +17,18 @@ namespace Helpers {
         return new \PDO($conn_str, \Settings\DB_USERNAME,
             \Settings\DB_PASSWORD);
     }
+
+    function get_GET_params(array $existing_param_names,
+        array $new_params = []): string {
+        $a = [];
+        foreach ($existing_param_names as $name)
+            if (!empty($_GET[$name]))
+                $a[] = $name . '=' . urlencode($_GET[$name]);
+        foreach ($new_params as $name => $value)
+            $a[] = $name . '=' . urlencode($value);
+        $s = implode('&', $a);
+        if ($s)
+            $s = '?' . $s;
+        return $s;
+    }
 }

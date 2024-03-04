@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <link href="css/styles.css" rel="stylesheet" type="text/css">
-  <title><?php echo ((isset($site_title)) ?
-  $site_title . ' :: ' : '') ?>
-  <?php echo \Settings\SITE_NAME ?></title>
+  <title>
+    <?php echo ((isset($site_title)) ? $site_title . ' :: ' : '') ?>
+    <?php echo \Settings\SITE_NAME ?>
+  </title>
 </head>
 <body>
 <h1><a href="/"><?php echo \Settings\SITE_NAME ?></a></h1>

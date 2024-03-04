@@ -8,4 +8,6 @@ namespace Settings {
     const DB_NAME = 'photogallery';
     const DB_USERNAME = 'root';
     const DB_PASSWORD = '';
+
+    const RECORDS_ON_PAGE = 2;
 }
