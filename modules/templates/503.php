@@ -1,3 +1,4 @@
+<?php http_response_code(503) ?>
 <?php require \Helpers\get_fragment_path('__header') ?>
 <h2>Внутренняя ошибка сервера</h2>
 <pre><?php echo $message ?>
