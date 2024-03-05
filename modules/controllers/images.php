@@ -30,7 +30,7 @@ class Images extends BaseController {
             }
         } else
             $comment_form =
-                \Forms\Comment::get_initial_data(['uploaded' => time()]);
+                \Forms\Comment::get_initial_data();
         $users = new \Models\User();
         $users->select('*', NULL, '', NULL, 'name');
         $picts = new \Models\Picture();
