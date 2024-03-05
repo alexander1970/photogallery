@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 30 2019 г., 15:35
+-- Время создания: Окт 04 2019 г., 16:45
 -- Версия сервера: 10.4.6-MariaDB
 -- Версия PHP: 7.3.9
 
@@ -103,7 +103,9 @@ INSERT INTO `pictures` (`id`, `filename`, `title`, `description`, `category`, `u
 (6, '201710242002.jpg', 'Памятник собаке-поводырю', 'Стоит на автобусной остановке', 4, 1, '2019-09-06 09:55:46'),
 (7, '200807192032.jpg', 'Пустынная аллея', 'В запущенном парке на окраине', 3, 2, '2019-09-06 09:58:40'),
 (8, '201410131614.jpg', 'Роза', '', 1, 3, '2019-09-06 10:00:01'),
-(9, '201709180821.jpg', 'Бегемотики', '', 4, 3, '2019-09-06 10:01:14');
+(9, '201709180821.jpg', 'Бегемотики', '', 4, 3, '2019-09-06 10:01:14'),
+(10, '201910041627.jpg', 'Октябрьский мотив', 'Снято возле Волжской филармонии.', 2, 2, '2019-10-03 14:15:07'),
+(11, '201910031615_1.jpg', 'Сумрачный пейзаж', '', 3, 2, '2019-10-03 14:15:37');
 
 -- --------------------------------------------------------
 
@@ -177,13 +179,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT для таблицы `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT для таблицы `pictures`
 --
 ALTER TABLE `pictures`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT для таблицы `users`

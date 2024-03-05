@@ -14,6 +14,18 @@ if (preg_match('/^cats\/(\w+)$/', $request_path, $result) === 1) {
     $index = (integer)$result[1];
     $ctr = new \Controllers\Images();
     $ctr->item($index);
+} else if (preg_match('/^users\/(\w+)\/pictures\/add$/',
+    $request_path, $result) === 1) {
+    $ctr = new \Controllers\Images();
+    $ctr->add($result[1]);
+} else if (preg_match('/^users\/(\w+)\/pictures\/(\d+)\/edit$/',
+    $request_path, $result) === 1) {
+    $ctr = new \Controllers\Images();
+    $ctr->edit($result[1], (integer)$result[2]);
+} else if (preg_match('/^users\/(\w+)\/pictures\/(\d+)\/delete$/',
+    $request_path, $result) === 1) {
+    $ctr = new \Controllers\Images();
+    $ctr->delete($result[1], (integer)$result[2]);
 } else if (preg_match('/^(\d+)\/comments\/(\d+)\/edit$/',
     $request_path, $result) === 1) {
     $picture_index = (integer)$result[1];

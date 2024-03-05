@@ -104,4 +104,70 @@ class Images extends BaseController {
             'site_title' => $user['name'] . ' :: Пользователи'];
         $this->render('by_user', $ctx);
     }
+
+    function add(string $username) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $picture_form =
+                \Forms\Picture::get_normalized_data($_POST);
+            if (!isset($picture_form['__errors'])) {
+                $picture_form =
+                    \Forms\Picture::get_prepared_data($picture_form);
+                $users = new \Models\User();
+                $user = $users->get_or_404($username, 'name', 'id');
+                $picture_form['user'] = $user['id'];
+                $pictures = new \Models\Picture();
+                $pictures->insert($picture_form);
+                \Helpers\redirect('/users/' . $username);
+            }
+        } else
+            $picture_form =
+                \Forms\Picture::get_initial_data();
+        $categories = new \Models\Category();
+        $categories->select();
+        $ctx = ['site_title' => 'Добавление изображения',
+            'username' => $username, 'form' => $picture_form,
+            'categories' => $categories];
+        $this->render('picture_add', $ctx);
+    }
+
+    function edit(string $username, int $picture_index) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $picture_form =
+                \Forms\Picture2::get_normalized_data($_POST);
+            if (!isset($picture_form['__errors'])) {
+                $picture_form =
+                    \Forms\Picture2::get_prepared_data($picture_form);
+                $pictures = new \Models\Picture();
+                $pictures->update($picture_form, $picture_index);
+                \Helpers\redirect('/users/' . $username .
+                    \Helpers\get_GET_params(['page', 'filter']));
+            }
+        } else {
+            $pictures = new \Models\Picture();
+            $picture = $pictures->get_or_404($picture_index);
+            $picture_form =
+                \Forms\Picture2::get_initial_data($picture);
+        }
+        $categories = new \Models\Category();
+        $categories->select();
+        $ctx = ['form' => $picture_form, 'categories' => $categories,
+            'username' => $username, 'site_title' => 'Правка изображения'];
+        $this->render('picture_edit', $ctx);
+    }
+
+    function delete(string $username, int $picture_index) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $pictures = new \Models\Picture();
+            $pictures->delete($picture_index);
+            \Helpers\redirect('/users/' . $username .
+                \Helpers\get_GET_params(['page', 'filter']));
+        } else {
+            $pictures = new \Models\Picture();
+            $picture = $pictures->get_or_404($picture_index, 'id',
+                'title, uploaded');
+            $ctx = ['picture' => $picture, 'username' => $username,
+                'site_title' => 'Удаление изображения'];
+            $this->render('picture_delete', $ctx);
+        }
+    }
 }

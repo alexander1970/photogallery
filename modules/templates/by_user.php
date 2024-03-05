@@ -2,9 +2,12 @@
 <?php require \Helpers\get_fragment_path('__filter_form') ?>
 <?php $gets = \Helpers\get_GET_params(['page', 'filter']) ?>
 <h2><?php echo $user['name'] ?></h2>
+<p><a href="<?php echo '/users/' . $user['name'] .
+    '/pictures/add'. $gets ?>">Добавить изображение</a></p>
 <table id="gallery">
     <tr><th></th><th></th><th>Категория</th>
-    <th>Дата и время публикации</th><th>Комментариев</th></tr>
+    <th>Дата и время публикации</th><th>Комментариев</th>
+    <th></th><th></th></tr>
     <?php foreach ($picts as $pict) { ?>
     <tr>
         <td><a href="/<?php echo $pict['id'], $gets ?>">
@@ -18,6 +21,10 @@
         </a></h4></td>
         <td><?php echo \Helpers\get_formatted_timestamp($pict['uploaded']) ?></td>
         <td><?php echo $pict['comment_count'] ?></td>
+        <td><a href="<?php echo '/users/', $user['name'], '/pictures/',
+            $pict['id'], '/edit', $gets ?>">Исправить</a></td>
+        <td><a href="<?php echo '/users/', $user['name'], '/pictures/',
+            $pict['id'], '/delete', $gets ?>">Удалить</a></td>
     </tr>
     <?php } ?>
 </table>
